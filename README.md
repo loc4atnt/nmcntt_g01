@@ -3,7 +3,7 @@
 https://drive.google.com/drive/folders/1f8ZRKY9zJ_PHC9feNlyuH4V1SN1PIN0k?usp=sharing
 ## **(Các file/folder trong drive này cũng chính là các tiêu chí đánh giá)**
 
-##Phân nhiệm vụ từng người
+Phân nhiệm vụ từng người
 
 Tuần 1: Huỳnh Đức Nhâm
 
