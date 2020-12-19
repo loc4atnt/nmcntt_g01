@@ -15,4 +15,5 @@ Task 4: sampling by option(AVG/MIN/MAX): array(y,y) => array(z=y/n,z=y/n)
 Merge & Convert
 Task 5: convert: array (x,y,y) => array (x,z=y/n,z=y/n) => array (x,z*z) (vectorize)
    		Merge 1->5 to main.py
+   		Histogram extraction: histogram an image => histogram an image array
 => Nhâm

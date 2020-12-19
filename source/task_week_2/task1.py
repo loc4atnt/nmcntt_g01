@@ -5,7 +5,7 @@ import numpy as np
 def imgToVector(array2d):
 	r = array2d.shape[0]
 	c = array2d.shape[1]
-	array1d = np.zeros(c*r,dtype=int)
+	array1d = np.zeros(c*r)
 	for i in range(r):
 		for j in range(c):
 			array1d[i*c+j] = array2d[i, j]

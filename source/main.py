@@ -39,6 +39,7 @@ def showData(X_train, y_train, X_test, y_test):
 	plt.show()
 
 X_train, y_train = loadMnist("data/")
-X_test, y_test = loadMnist("data/", kind='test')
-print("Rows: %d, columns: %d" % (X_train.shape[0], X_train.shape[1]))
-showData(X_train, y_train, X_test, y_test)
+# X_test, y_test = loadMnist("data/", kind='test')
+# print("Rows: %d, columns: %d" % (X_train.shape[0], X_train.shape[1]))
+# showData(X_train, y_train, X_test, y_test)
+print(X_train[0])

@@ -1,4 +1,5 @@
 import numpy as np
+
 def avgArr(arr):
     return np.mean(arr)
 def minArr(arr):
