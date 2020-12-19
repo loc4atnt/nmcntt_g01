@@ -9,4 +9,4 @@ def multiImgToVector(imgArr):
 	arrImgVec = np.zeros((n,imgArr.shape[1]*imgArr.shape[2]))
 	for i in range(n):
 		arrImgVec[i] = imgToVector(imgArr[i])
-	return np.array([[]]) # Fake return
+	return arrImgVec
