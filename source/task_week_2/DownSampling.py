@@ -8,7 +8,9 @@ def minArr(arr):
     return np.min(arr)
 def maxArr(arr):
     return np.max(arr)
-
+AVG = 'AVG'
+MIN = 'MIN'
+MAX = 'MAX'
 #Downsample 1 Image
 def Downsample_Arr(array2d, option = 'AVG', kernel_size = 2):
     if (array2d.shape[0]%kernel_size!=0):
