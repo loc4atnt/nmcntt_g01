@@ -1,7 +1,6 @@
 import numpy as np
 
 import task1
-
 # Parameter: imgArr is a numpy array with shape (n,x,y) - with n is the number of images
 # Return: a numpy array with shape (n, x*y)
 def multiImgToVector(imgArr):
