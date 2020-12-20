@@ -2,7 +2,7 @@ import numpy as np
 
 import task1
 import task3
-import task4
+import DownSampling
 
 # Parameter: img is a numpy array with shape (x,y)
 # Return: a numpy array with shape (256)
@@ -25,7 +25,7 @@ def getImgArrHisExtraction(imgArr):
 	return hisArr
 
 # Parameter: imgArr is a numpy array with shape (n,y,y)
-#			 n (a number) is size of sampling piece (n*n)
+#			 n (a number) is size of kernel (n*n)
 #			 sampling_kind is a number in SAMPLING KIND (task3.py)
 # Return: a numpy array with shape (n, (z=y/n)*(z=y/n))
 def getImgArrSamplingExtraction(imgArr, n, sampling_kind):
@@ -35,7 +35,7 @@ def getImgArrSamplingExtraction(imgArr, n, sampling_kind):
 	#
 	i = 0
 	for img in imgArr:
-		samplImg = task4.getSamplingExtraction(img, n, sampling_kind)
+		samplImg = DownSampling.Downsample_Arr(img, sampling_kind, n)
 		samplArr[i] = task1.imgToVector(samplImg)
 		i += 1
 	return samplArr
