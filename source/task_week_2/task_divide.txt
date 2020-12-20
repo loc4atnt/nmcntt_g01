@@ -5,7 +5,7 @@ Task 2: array image => array vetor: array (x,y,y) => array (x,y*y)
 => Trí
 
 
-Sampling
+Sampling (Gia xong het roi, doi ten file sang DownSampling.py)
 Task 3: 3 func to get avg/min/max value of an array 2d
    		fourth func to get sampling value with option(AVG/MIN/MAX)
 => Mạnh
