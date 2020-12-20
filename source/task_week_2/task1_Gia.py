@@ -35,21 +35,23 @@ def build_model():
     #x = BatchNormalization(axis=3)(x)
 
     x = Flatten ()(x)
-    x = Dense (16, kernel_initializer = random_normal())(x)
-    x = Activation("relu")(x)
+    
+    """x = Dense (16, kernel_initializer = random_normal())(x)
+    x = Activation("relu")(x)"""
 
-    x = Dense (10)(x)
+    x = Dense (10, kernel_initializer = random_normal())(x)
     x = Activation("softmax")(x)
     return Model(inputs, x)
 
 def train_model():
-    opt = tf.keras.optimizers.SGD(0.0005)
+    opt = tf.keras.optimizers.SGD(0.0003)
     metrics = ["acc"]
     model.compile(loss="categorical_crossentropy", optimizer=opt, metrics=metrics)
     #Train 20 lan, moi lan 20 epoch.
     for i in range (0, 20):
-        model.fit (X_train, y_train, batch_size=32, epochs=20, verbose=2, validation_data=(X_test, y_test))
+        model.fit (X_train, y_train, batch_size=32, epochs=40, verbose=2, validation_data=(X_test, y_test))
         model.save ("gaymodel2.h5")
+        print("Model saved")
 
     
 import os
@@ -66,9 +68,9 @@ from tensorflow.keras.initializers import random_normal
 
 prepare_dataset()
 #uncomment de tao model moi
-#model = build_model()
+model = build_model()
 #load model cu len, neu tao model moi thi comment dong nay
-model = load_model('gaymodel2.h5')
+#model = load_model('gaymodel2.h5')
 #Train model
 train_model()
 
