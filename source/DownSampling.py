@@ -14,15 +14,19 @@ MAX = 'MAX'
 
 #Downsample 1 Image
 def Downsample_Arr(array2d, option = 'AVG', kernel_size = 2):
-    if (array2d.shape[0]%kernel_size!=0):
-        raise Exception("Error!! Img size ",array2d.shape[0]," must be divisible by kernel_size value ",kernel_size,"")
+    # if (array2d.shape[0]%kernel_size!=0):
+    #     raise Exception("Error!! Img size ",array2d.shape[0]," must be divisible by kernel_size value ",kernel_size,"")
 
     array_result = np.zeros ((array2d.shape[0]//kernel_size, array2d.shape [0]//kernel_size))
-    for i in range (0, array2d.shape [0], kernel_size):
-        for j in range (0, array2d.shape [0], kernel_size):
-            if option == 'AVG' : array_result [i//kernel_size, j//kernel_size] = avgArr(array2d[i:i+kernel_size, j:j+kernel_size])
-            if option == 'MIN' : array_result [i//kernel_size, j//kernel_size] = minArr(array2d[i:i+kernel_size, j:j+kernel_size])
-            if option == 'MAX' : array_result [i//kernel_size, j//kernel_size] = maxArr(array2d[i:i+kernel_size, j:j+kernel_size])
+    range_ = range(0, array2d.shape [0], kernel_size)
+    for i in range_:
+        for j in range_:
+            if option == 'AVG':
+                array_result [i//kernel_size, j//kernel_size] = avgArr(array2d[i:i+kernel_size, j:j+kernel_size])
+            elif option == 'MIN':
+                array_result [i//kernel_size, j//kernel_size] = minArr(array2d[i:i+kernel_size, j:j+kernel_size])
+            elif option == 'MAX':
+                array_result [i//kernel_size, j//kernel_size] = maxArr(array2d[i:i+kernel_size, j:j+kernel_size])
     return array_result
 
 #Downsample List of Images
