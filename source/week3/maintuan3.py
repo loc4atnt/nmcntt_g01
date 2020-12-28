@@ -14,4 +14,6 @@ knn = KNeighborsClassifier(n_neighbors=5)
 knn.fit(X_train, y_train)
 #Predict Output
 predicted= knn.predict(X_test)
-print("y_test: ", predicted)
+accuracy = knn.score(X_test,y_test)
+print("Predicted y_test: ", predicted)
+print("Accuracy: %d%%"%(accuracy*100))

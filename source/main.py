@@ -1,26 +1,41 @@
 import numpy as np
+from sklearn.neighbors import KNeighborsClassifier
 
 import DataSet as ds
 import Vectorization as vec
-import DownSampling
+import DownSampling as dSample
 import Histogram as his
+
+HISTOGRAM = 'HISTOGRAM'
+VECTORIZATION = 'VECTORIZATION'
+DOWNSAMPLING = 'DOWNSAMPLING'
+
+def featureExtract(dataset, tech = HISTOGRAM, option = dSample.AVG, kernel_size = 2):
+	if tech == HISTOGRAM:
+		return his.getImgArrHisExtraction(dataset)
+	if tech == VECTORIZATION:
+		return vec.multiImgToVector(dataset)
+	if tech == DOWNSAMPLING:
+		return dSample.Downsample_List_Arr(dataset, option, kernel_size, isVectorize = True)
 
 X_train, y_train = ds.loadMnist("data/", kind='train')
 X_test, y_test = ds.loadMnist("data/", kind='test')
 
+TRAIN_SIZE = 6000
+
 # Extraction
-print("Vectorize Image Array.........")
-Vec_X_train = vec.multiImgToVector(X_train)
-print("Shape: ",Vec_X_train.shape)
-print(Vec_X_train)
+X_train_extracted = featureExtract(X_train[:TRAIN_SIZE], tech = DOWNSAMPLING)
+X_test_extracted = featureExtract(X_test, tech = DOWNSAMPLING)
 
-print("Get Histogram Image Array.........")
-Histogram_X_train = his.getImgArrHisExtraction(X_train)
-print("Shape: ",Histogram_X_train.shape)
-print(Histogram_X_train)
+# Train
+kNN = KNeighborsClassifier(n_neighbors=3)
+kNN.fit(X_train_extracted,y_train[:TRAIN_SIZE])
+# Check accuracy
+acc = kNN.score(X_test_extracted, y_test)
+print("Do chinh xac: %d%%"%(acc*100))
 
-print("Down Sampling Image Array.........")
-DownSampl_X_train = DownSampling.Downsample_List_Arr(X_train[:1000], option = DownSampling.AVG,
-													 kernel_size = 2, isVectorize = True)
-print("Shape: ",DownSampl_X_train.shape)
-print(DownSampl_X_train)
+# Predict
+print("Du doan tren tap test:")
+print(kNN.predict(X_test_extracted.reshape(X_test_extracted.shape[0],-1)))
+print("Ket qua dung:")
+print(y_test)

@@ -39,7 +39,7 @@ def showData(X_train, y_train, X_test, y_test):
 	plt.show()
 
 def showImage(img):
-	plt.imshow(img)
+	plt.imshow(img, cmap='Greys', interpolation='nearest')
 	plt.show()
 
 # X_train, y_train = loadMnist("data/")
