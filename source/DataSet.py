@@ -38,9 +38,18 @@ def showData(X_train, y_train, X_test, y_test):
 	plt.tight_layout()
 	plt.show()
 
-def showImage(img):
+def showImage(img, title = 'predicted'):
+	plt.title(title)
 	plt.imshow(img, cmap='Greys', interpolation='nearest')
 	plt.show()
+
+def showImages(imgs, predicts):
+	count = 0
+	for img in imgs:
+		plt.title(str(predicts[count]))
+		count +=1
+		plt.imshow(img, cmap='Greys', interpolation='nearest')
+		plt.show()
 
 # X_train, y_train = loadMnist("data/")
 # X_test, y_test = loadMnist("data/", kind='test')
