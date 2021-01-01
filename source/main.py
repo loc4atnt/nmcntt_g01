@@ -1,52 +1,31 @@
 import numpy as np
-from sklearn.neighbors import KNeighborsClassifier
-
 import DataSet as ds
-import Vectorization as vec
-import DownSampling as dSample
-import Histogram as his
-import pickle
+import FeatureExtraction as fe
+import ModelTraining as mt
 
-HISTOGRAM = 'HISTOGRAM'
-VECTORIZATION = 'VECTORIZATION'
-DOWNSAMPLING = 'DOWNSAMPLING'
-
-def featureExtract(dataset, tech = HISTOGRAM, option = dSample.AVG, kernel_size = 2):
-	if tech == HISTOGRAM:
-		return his.getImgArrHisExtraction(dataset)
-	if tech == VECTORIZATION:
-		return vec.multiImgToVector(dataset)
-	if tech == DOWNSAMPLING:
-		return dSample.Downsample_List_Arr(dataset, option, kernel_size, isVectorize = True)
-
-def getModel(X=None, y=None, n_neighbors=100, isSaved=False, savingPath='model.sav'):
-	if isSaved:
-		return pickle.load(open(savingPath,'rb'))
-	else:
-		kNN = KNeighborsClassifier(n_neighbors)
-		kNN.fit(X,y)
-		# Save model
-		pickle.dump(kNN, open(savingPath,'wb'))
-		return kNN
-
-#X_train, y_train = ds.loadMnist("data/", kind='train')
+X_train, y_train = ds.loadMnist("data/", kind='train')
 X_test, y_test = ds.loadMnist("data/", kind='test')
-X_test = X_test[100:200]
-y_test = y_test[100:200]
+# X_test = X_test[300:400]
+# y_test = y_test[300:400]
+
 # Extract test dataset
-X_test_extracted = featureExtract(X_test, tech = DOWNSAMPLING)
+X_test_extracted = fe.featureExtract(X_test, tech = fe.DOWNSAMPLING)
 
 # Model
-# kNN = getModel(featureExtract(X_train, tech = DOWNSAMPLING), y_train)
-kNN = getModel(isSaved=True)
+# model = mt.getModel(mt.AVGSAMPLE,X=fe.featureExtract(X_train, tech = fe.DOWNSAMPLING),y=y_train,savingPath='model/avg_sample_model.sav')
+# model = mt.getModel(mt.AVGSAMPLE,isSaved=True,savingPath='model/avg_sample_model.sav')
+#
+# model = mt.getModel(mt.KNN,X=fe.featureExtract(X_train, tech = fe.DOWNSAMPLING),y=y_train,savingPath='model/knn_model.sav')
+model = mt.getModel(mt.KNN,isSaved=True,savingPath='model/knn_model.sav')
 
 print("Du doan tren tap test:")
 # Check accuracy
-acc = kNN.score(X_test_extracted, y_test)
+acc = model.score(X_test_extracted, y_test)
 print("Do chinh xac: %d%%"%(acc*100))
 # Predict
-print(kNN.predict(X_test_extracted.reshape(X_test_extracted.shape[0],-1)))
+print(model.predict(X_test_extracted.reshape(X_test_extracted.shape[0],-1)))
 print("Ket qua dung:")
 print(y_test)
-# Show
-#ds.showImages(X_test[:10], kNN.predict(X_test_extracted[:10].reshape(10,-1)))
+# # Show
+# #ds.showImages(X_test[:10], model.predict(X_test_extracted[:10].reshape(10,-1)))
+# ds.showImage(X_train_avg[6].reshape(14,14))
