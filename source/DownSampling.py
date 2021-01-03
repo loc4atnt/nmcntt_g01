@@ -12,11 +12,14 @@ AVG = 'AVG'
 MIN = 'MIN'
 MAX = 'MAX'
 
+    
 #Downsample 1 Image
-def Downsample_Arr(array2d, option = 'AVG', kernel_size = 2):
-    # if (array2d.shape[0]%kernel_size!=0):
-    #     raise Exception("Error!! Img size ",array2d.shape[0]," must be divisible by kernel_size value ",kernel_size,"")
 
+#Gia: Legacy Code, New version below
+"""
+def Downsample_Arr_old(array2d, option = 'AVG', kernel_size = 2):
+    # if (array2d.shape[0]%kernel_size!=0):
+    #     raise Exception("Error!! Img size ",array2d.shape[0]," must be divisible by kernel_size value ",kernel_size,"")    
     array_result = np.zeros ((array2d.shape[0]//kernel_size, array2d.shape [0]//kernel_size))
     range_ = range(0, array2d.shape [0], kernel_size)
     for i in range_:
@@ -29,7 +32,6 @@ def Downsample_Arr(array2d, option = 'AVG', kernel_size = 2):
                 array_result [i//kernel_size, j//kernel_size] = maxArr(array2d[i:i+kernel_size, j:j+kernel_size])
     return array_result
 
-#Downsample List of Images
 def Downsample_List_Arr (list_array2d, option = 'AVG', kernel_size = 2, isVectorize = True):
     if (list_array2d.shape[1]%kernel_size!=0):
         raise Exception("Error!! Img size must be divisible by kernel_size value")
@@ -39,14 +41,46 @@ def Downsample_List_Arr (list_array2d, option = 'AVG', kernel_size = 2, isVector
         array_result[i] = Downsample_Arr(list_array2d[i], option, kernel_size)
 
     return (Vectorization.multiImgToVector(array_result) if isVectorize else array_result)
-
-#Proof of concept, xoa neu nop thay
 """
-import main
-X_test, y_test = main.loadMnist("../data/", kind='test')
-gay = Downsample_Arr (X_test[0], 'AVG', 4)
+
+def Downsample_Arr(array2d, option = 'AVG', kernel_size = 2):
+    if option == 'AVG':
+        return array2d.reshape ((array2d.shape[0]//kernel_size, kernel_size, array2d.shape [0]//kernel_size, kernel_size)).mean(axis=(1,3))
+    elif option == 'MIN':
+        return array2d.reshape ((array2d.shape[0]//kernel_size, kernel_size, array2d.shape [0]//kernel_size, kernel_size)).min(axis=(1,3))
+    elif option == 'MAX':
+        return array2d.reshape ((array2d.shape[0]//kernel_size, kernel_size, array2d.shape [0]//kernel_size, kernel_size)).max(axis=(1,3))
+    
+#Downsample List of Images
+def Downsample_List_Arr (list_array2d, option = 'AVG', kernel_size = 2, isVectorize = True):
+    if (list_array2d.shape[1]%kernel_size!=0):
+        raise Exception("Error!! Img size must be divisible by kernel_size value")
+    if option == 'AVG':
+        array_result = list_array2d.reshape ((list_array2d.shape[0], list_array2d.shape[1]//kernel_size, kernel_size, list_array2d.shape [1]//kernel_size, kernel_size)).mean(axis=(2,4))
+    elif option == 'MIN':
+        array_result = list_array2d.reshape ((list_array2d.shape[0], list_array2d.shape[1]//kernel_size, kernel_size, list_array2d.shape [1]//kernel_size, kernel_size)).min(axis=(2,4))
+    elif option == 'MAX':
+        array_result = list_array2d.reshape ((list_array2d.shape[0], list_array2d.shape[1]//kernel_size, kernel_size, list_array2d.shape [1]//kernel_size, kernel_size)).max(axis=(2,4))
+    #array_result = list_array2d.reshape ((list_array2d.shape[0], list_array2d.shape[1]//kernel_size, kernel_size, list_array2d.shape [1]//kernel_size, kernel_size)).mean(axis=(2,4))
+    return (Vectorization.multiImgToVector(array_result) if isVectorize else array_result)
+
+"""
+import DataSet
+X_test, y_test = DataSet.loadMnist("./data/", kind='train')
+#gay = Downsample_Arr (X_test[0], 'MAX', 4)
+import time
+start_time = time.time()
 gay2 = Downsample_List_Arr (X_test, 'AVG', 4)
-print (gay)
-print (gay2[0])
+print("--- %s seconds ---" % (time.time() - start_time))
+#print (gay)
+print (gay2[3])
+print (gay2.shape)
+
+
+start_time = time.time()
+gay2 = Downsample_List_Arr_Test (X_test, 'AVG', 4)
+print("--- %s seconds ---" % (time.time() - start_time))
+#print (gay)
+print (gay2[3])
 print (gay2.shape)
 """
