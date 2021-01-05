@@ -13,10 +13,10 @@ X_test_extracted = fe.featureExtract(X_test, tech = fe.DOWNSAMPLING)
 
 # Model
 # model = mt.getModel(mt.AVGSAMPLE,X=fe.featureExtract(X_train, tech = fe.DOWNSAMPLING),y=y_train,savingPath='model/avg_sample_model.sav')
-# model = mt.getModel(mt.AVGSAMPLE,isSaved=True,savingPath='model/avg_sample_model.sav')
+model = mt.getModel(mt.AVGSAMPLE,isSaved=True,savingPath='model/avg_sample_model.sav')
 #
 # model = mt.getModel(mt.KNN,X=fe.featureExtract(X_train, tech = fe.DOWNSAMPLING),y=y_train,savingPath='model/knn_model.sav')
-model = mt.getModel(mt.KNN,isSaved=True,savingPath='model/knn_model.sav')
+# model = mt.getModel(mt.KNN,isSaved=True,savingPath='model/knn_model.sav')
 
 print("Du doan tren tap test:")
 # Check accuracy
