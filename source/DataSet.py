@@ -43,13 +43,19 @@ def showImage(img, title = 'predicted'):
 	plt.imshow(img, cmap='Greys', interpolation='nearest')
 	plt.show()
 
-def showImages(imgs, predicts):
-	count = 0
-	for img in imgs:
-		plt.title(str(predicts[count]))
-		count +=1
-		plt.imshow(img, cmap='Greys', interpolation='nearest')
-		plt.show()
+def showImages(imgs, predicts, corArr):
+	fig, ax = plt.subplots(nrows=2, ncols=5, sharex=True, sharey=True)
+	ax = ax.flatten()
+	# show train data
+	for i in range(10):
+		ax[i].imshow(imgs[i], cmap='Greys', interpolation='nearest')
+		ax[i].set_title('%d-%d'%(predicts[i], corArr[i]))
+	# setup display
+	fig.suptitle('Data Prediction Show (Predict-Correct)', fontsize=18);
+	ax[0].set_xticks([])
+	ax[0].set_yticks([])
+	plt.tight_layout()
+	plt.show()
 
 # X_train, y_train = loadMnist("data/")
 # X_test, y_test = loadMnist("data/", kind='test')
