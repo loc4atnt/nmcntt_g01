@@ -2,7 +2,7 @@ import numpy as np
 import DataSet as ds
 import FeatureExtraction as fe
 import ModelTraining as mt
-import PickleUtil as pu
+# import PickleUtil as pu
 
 # import time
 # startTime = time.time()
@@ -23,7 +23,7 @@ X_train_extracted = fe.featureExtract(X_train, tech = fe.VECTORIZATION)
 # mt.AVGSAMPLE
 # mt.KNN
 model = mt.getModel(mt.KNN, X_train_extracted, y_train, n_neighbors=100)
-pu.saveModelToFile(model, "model/m11.sav")
+# pu.saveModelToFile(model, "model/m11.sav")
 # print(time.time()-startTime)
 
 print("Du doan tren tap test:")
