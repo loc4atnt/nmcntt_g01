@@ -43,13 +43,14 @@ def showImage(img, title = 'predicted'):
 	plt.imshow(img, cmap='Greys', interpolation='nearest')
 	plt.show()
 
-def showImages(imgs, predicts, corArr):
+def showRandPredictImage(imgs, predicts, corArr):
+	rdIdxArr = np.random.choice(imgs.shape[0],size=10,replace=False)
 	fig, ax = plt.subplots(nrows=2, ncols=5, sharex=True, sharey=True)
 	ax = ax.flatten()
 	# show train data
 	for i in range(10):
-		ax[i].imshow(imgs[i], cmap='Greys', interpolation='nearest')
-		ax[i].set_title('%d-%d'%(predicts[i], corArr[i]))
+		ax[i].imshow(imgs[rdIdxArr[i]], cmap='Greys', interpolation='nearest')
+		ax[i].set_title('%d-%d'%(predicts[rdIdxArr[i]], corArr[rdIdxArr[i]]))
 	# setup display
 	fig.suptitle('Data Prediction Show (Predict-Correct)', fontsize=18);
 	ax[0].set_xticks([])
