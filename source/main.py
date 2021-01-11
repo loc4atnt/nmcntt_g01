@@ -4,6 +4,13 @@ import random
 import DataSet as ds
 import FeatureExtraction as fe
 import ModelTraining as mt
+<<<<<<< HEAD
+=======
+# import PickleUtil as pu
+
+# import time
+# startTime = time.time()
+>>>>>>> ef82c377e26d29e6146cc8234f97c72ffd92ddec
 
 # Load bo du lieu MNIST
 X_train, y_train = ds.loadMnist("data/", kind='train')
@@ -25,7 +32,13 @@ X_train_extracted = fe.featureExtract(X_train, tech = fe.VECTORIZATION)
 # Model
 # mt.AVGSAMPLE
 # mt.KNN
+<<<<<<< HEAD
 model = mt.getModel(mt.AVGSAMPLE, X_train_extracted, y_train)
+=======
+model = mt.getModel(mt.KNN, X_train_extracted, y_train, n_neighbors=100)
+# pu.saveModelToFile(model, "model/m11.sav")
+# print(time.time()-startTime)
+>>>>>>> ef82c377e26d29e6146cc8234f97c72ffd92ddec
 
 print("Du doan tren mau %d anh test phia tren:"%TEST_AMOUNT)
 # Check accuracy
@@ -37,5 +50,9 @@ print(prediction)
 print("Ket qua dung:")
 print(y_test)
 
+<<<<<<< HEAD
 # Show ngau nhien 10 du doan anh trong tap test
 ds.showRandPredictImage(X_test, prediction, y_test)
+=======
+# ds.showImages(X_test, prediction, y_test)
+>>>>>>> ef82c377e26d29e6146cc8234f97c72ffd92ddec

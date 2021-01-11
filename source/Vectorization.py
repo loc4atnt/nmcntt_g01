@@ -7,9 +7,21 @@ def imgToVector(array2d):
 
 # Parameter: imgArr is a numpy array with shape (n,x,y) - with n is the number of images
 # Return: a numpy array with shape (n, x*y)
+	
 def multiImgToVector(imgArr):
-	n = imgArr.shape[0]
-	arrImgVec = np.zeros((n,imgArr.shape[1]*imgArr.shape[2]))
-	for i in range(n):
-		arrImgVec[i] = imgToVector(imgArr[i])
+	arrImgVec = imgArr.reshape ((imgArr.shape[0],imgArr.shape[1]*imgArr.shape[2]))
 	return arrImgVec
+
+"""
+import DataSet
+import time
+X_test, y_test = DataSet.loadMnist("./data/", kind='train')
+start_time = time.time()
+gay2 = multiImgToVector (X_test)
+print("--- %s seconds ---" % (time.time() - start_time))
+start_time = time.time()
+gay2 = multiImgToVector_test (X_test)
+print("--- New %s seconds ---" % (time.time() - start_time))
+if np.array_equal(multiImgToVector (X_test), multiImgToVector_test (X_test)):
+        print ("EQUAL!!!!")
+"""
